@@ -33,8 +33,8 @@ class RPS(ctk.CTk):
         #menu --> Theme
         theme = tk.Menu(menubar, tearoff=False)
         theme.add_radiobutton(label="Theme 1", command=print("Theme 1: Default"), value=1)
-        theme.add_radiobutton(label="Theme 1", command=print("Theme 2"), value=2)
-        theme.add_radiobutton(label="Theme 1", command=print("Theme 3"), value=3)
+        theme.add_radiobutton(label="Theme 2", command=print("Theme 2"), value=2)
+        theme.add_radiobutton(label="Theme 3", command=print("Theme 3"), value=3)
         
         #menu --> History
         history = tk.Menu(menubar, tearoff=False)
@@ -42,7 +42,7 @@ class RPS(ctk.CTk):
 
         #menu --> help
         help = tk.Menu(menubar, tearoff=False)
-        history.add_command(label="About", command=print("About"))
+        help.add_command(label="About", command=print("About"))
 
         menubar.add_cascade(label="Theme", menu=theme)
         menubar.add_cascade(label="History", menu=history)
@@ -75,17 +75,17 @@ class RPS(ctk.CTk):
 
         #intro label. This is also used when the player enter a value that is outside the 
         # range of 1 - 30
-        label = ctk.CTkLabel(frame, text="How many rounds do you wish to play", font=("Calibri",24,"bold"), text_color="green", bg_color="lightblue")
+        label = ttk.Label(frame, text="How many rounds do you wish to play", font=("Calibri",24,"bold"), background="lightblue")
         label.place(relx=0.5, rely=0.3, anchor="center")
 
         #this is the entry widget that allows the user to enter a value for the amount of 
         #rounds they want to play
         roundVar = tk.IntVar(value=1)
-        rounds = ttk.Scale(frame, from_=1, to=30, variable=roundVar, orient="horizontal")
-        rounds.place(relx=0.5, rely=0.5, relwidth=0.2, relheight=0.2, anchor="center")
+        rounds = ttk.Spinbox(frame, from_=1, to=30, textvariable=roundVar, font=("Calibri",24,"bold"), background="lightblue")
+        rounds.place(relx=0.5, rely=0.5, relwidth=0.2, relheight=0.1, anchor="center")
 
         #this function below checks if the value if valid. If so it move on to the next page
-        def exceeded(event):
+        def exceeded():
             if roundVar.get() not in tuple(range(1,31)):
                 label.configure(text="Value must be between 1 to 30")
             else:
@@ -101,6 +101,66 @@ class RPS(ctk.CTk):
         next.place(x=470, y=30, relwidth=0.2, relheight=0.1)
     
     def main_game_page(self):
-        pass
+        
+        #frame for the window
+        frame = ctk.CTkFrame(self, fg_color='#26b8dc')
+        frame.pack(expand=True, fill="both")
+
+        #label for the round
+        ttk.Label(frame, text="nth Round", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=300, y=10)
+        
+        #Score label, actual score, option choosen(this values are for the computer only)
+        ttk.Label(frame, text="My Score:", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=30, y=50)
+        ttk.Label(frame, text="0", font=("Calibri", 48, "bold"), background="#26b8dc").place(x=30, y=100)
+        ttk.Label(frame, text="Rock", font=("Calibri", 36, "bold"), background="#26b8dc").place(x=30, y=200)
+
+        #Score label, actual score, option choosen(this values are for the player only)
+        ttk.Label(frame, text="Your Score:", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=590, y=50)
+        ttk.Label(frame, text="0", font=("Calibri", 48, "bold"), background="#26b8dc").place(x=590, y=100)
+        ttk.Label(frame, text="Rock", font=("Calibri", 36, "bold"), background="#26b8dc").place(x=590, y=200)
+
+        #creating pictures for the rock, paper, scissors button respectively
+        rock = Image.open("Pictures\Theme1\Rock.jpeg")
+        paper = Image.open("Pictures\Theme1\Paper.jpeg")
+        scissors = Image.open("Pictures\Theme1\Scissors.jpeg")
+        imagetk1 = ctk.CTkImage(rock,size=(90,90))
+        imagetk2 = ctk.CTkImage(paper,size=(90,90))
+        imagetk3 = ctk.CTkImage(scissors,size=(90,90))
+
+        #displaying the picture
+        rock_pic = ctk.CTkLabel(frame, text="", image=imagetk1)
+        paper_pic = ctk.CTkLabel(frame, text="", image=imagetk2)
+        scissors_pic = ctk.CTkLabel(frame, text="", image=imagetk3)
+
+        rock_pic.place(x=130, y=250, anchor='ne')
+        paper_pic.place(x=330, y=250, anchor="ne")
+        scissors_pic.place(x=530, y=250, anchor="ne")
+
+        #button that chooses the player options
+        ctk.CTkButton(frame, text="Rock").place(x=150, y=350, anchor='ne')
+        ctk.CTkButton(frame, text="Paper").place(x=350, y=350,anchor="ne")
+        ctk.CTkButton(frame, text="Scissors").place(x=550, y=350, anchor="ne")
+
+        #this function displays the result as a frame in the window
+        def result():
+            result_frame = ctk.CTkFrame(self, width=270, height=200)
+            
+            #pictures that show a win, lose, and draw in the game
+            draw = Image.open("Pictures\Draw.jpeg")
+            win = Image.open("Pictures\Win.jpg")
+            lose = Image.open("Pictures\Lose.jpeg")
+            imagetk1 = ctk.CTkImage(draw,size=(270,200))
+            imagetk2 = ctk.CTkImage(win,size=(270,200))
+            imagetk3 = ctk.CTkImage(lose,size=(270,200))
+
+            draw_pic = ctk.CTkLabel(result_frame, text="", image=imagetk1)
+            win_pic = ctk.CTkLabel(result_frame, text="", image=imagetk2)
+            lose_pic = ctk.CTkLabel(result_frame, text="", image=imagetk3)
+
+            #dislaying the picture
+            draw_pic.pack(expand=True, fill="both")
+
+            result_frame.place(x=150, y=40, anchor="nw")
+        result()
 
 RPS()
