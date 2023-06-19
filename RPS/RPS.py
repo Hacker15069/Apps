@@ -2,7 +2,7 @@ import random
 
 class Game:
     def __init__(self, rounds, playersGuess):
-        self.rounds = rounds
+        #self.rounds = rounds
         self.playersGuess = playersGuess
         self.response = 'Comming soon'
         self.choices = ['Rock','Scissors','Paper']
