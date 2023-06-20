@@ -115,13 +115,13 @@ class RPS(ctk.CTk):
         ctk.CTkButton(self.main_frame, text="GO BACK", command=back).place(x=10, y=30)
 
         #label for the round
-        ttk.Label(self.main_frame, text="nth Round", font=("Calibri", 24, "bold"), foreground="#26b8dc").place(x=300, y=30)
+        ttk.Label(self.main_frame, text="nth Round", font=("Calibri", 24, "bold"), background="#26b8dc", foreground="#26b8dc").place(x=300, y=30)
         
         #label --> For the scores of the computer
-        ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), foreground="#f00").place(x=30, y=100)
+        ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#f00").place(x=30, y=100)
 
         #label --> For the Scores of the player
-        ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), foreground="#00f").place(x=470, y=100)
+        ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#00f").place(x=470, y=100)
 
         #creating pictures for the rock, paper, scissors button respectively
         rock = Image.open("Pictures\Theme1\Rock.jpeg")
@@ -154,11 +154,11 @@ class RPS(ctk.CTk):
         #This is the main functionality that make the scores, options change and update the history
         # and so on
         def button_func(opt):
-            player_opt = ttk.Label(self.main_frame, text="Rock", font=("Calibri", 36, "bold"), foreground="#00f")
-            computer_opt = ttk.Label(self.main_frame, text=f"Rock", font=("Calibri", 36, "bold"), foreground="#f00")
+            player_opt = ttk.Label(self.main_frame, text="Rock", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#00f")
+            computer_opt = ttk.Label(self.main_frame, text=f"Rock", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#f00")
             
-            player_score = ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), foreground="#f00")
-            computer_score = ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), foreground="#f00")
+            player_score = ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#f00")
+            computer_score = ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), background="#26b8dc", foreground="#f00")
             
             def displays():
                 #displaying options the player and computer has choosen
@@ -201,7 +201,7 @@ class RPS(ctk.CTk):
             result_frame = ctk.CTkFrame(new_window, width=270, height=200)
             
             #label --> This label tells which player won or if it is a draw
-            result = ctk.CTkLabel(new_window, text="It's a draw", bg_color='lightblue', font=("Calibri",24,"bold"))
+            result = ctk.CTkLabel(new_window, text="It's a draw", background="#26b8dc", text_color='lightblue', font=("Calibri",24,"bold"))
 
             #pictures that show a win, lose, and draw in the game
             draw = Image.open("Pictures\Draw.jpeg")
