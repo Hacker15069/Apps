@@ -10,9 +10,9 @@ class Game:
         self.computersPoints = 0
         
     def Game(self):
-        computersGuess = random.choice(self.choices)
+        self.computersGuess = random.choice(self.choices)
         playersChoiceConditions = [self.playersGuess == 'Rock', self.playersGuess == 'Paper', self.playersGuess == 'Scissors']
-        computersChoiceConditions = [computersGuess == 'Rock',computersGuess == 'Paper', computersGuess == 'Scissors']
+        computersChoiceConditions = [self.computersGuess == 'Rock',self.computersGuess == 'Paper', self.computersGuess == 'Scissors']
 
         #if player chooses rock
         if playersChoiceConditions[0]:

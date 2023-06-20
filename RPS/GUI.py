@@ -101,50 +101,103 @@ class RPS(ctk.CTk):
         next.place(x=470, y=30, relwidth=0.2, relheight=0.1)
     
     def main_game_page(self):
-        
+      
         #frame for the window
-        frame = ctk.CTkFrame(self, fg_color='#26b8dc')
-        frame.pack(expand=True, fill="both")
+        self.main_frame = ctk.CTkFrame(self, fg_color='#26b8dc')
+        self.main_frame.pack(expand=True, fill="both")
+
+        #Go Back button functionality
+        def back():
+            self.main_frame.pack_forget()
+
+            self.rounds()
+
+        #Go Back button
+        ctk.CTkButton(self.main_frame, text="GO BACK", command=back).place(x=10, y=30)
 
         #label for the round
-        ttk.Label(frame, text="nth Round", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=300, y=10)
+        ttk.Label(self.main_frame, text="nth Round", font=("Calibri", 24, "bold"), foreground="#26b8dc").place(x=300, y=30)
         
-        #Score label, actual score, option choosen(this values are for the computer only)
-        ttk.Label(frame, text="My Score:", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=30, y=50)
-        ttk.Label(frame, text="0", font=("Calibri", 48, "bold"), background="#26b8dc").place(x=30, y=100)
-        ttk.Label(frame, text="Rock", font=("Calibri", 36, "bold"), background="#26b8dc").place(x=30, y=200)
+        #label --> For the scores of the computer
+        ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), foreground="#f00").place(x=30, y=100)
 
-        #Score label, actual score, option choosen(this values are for the player only)
-        ttk.Label(frame, text="Your Score:", font=("Calibri", 24, "bold"), background="#26b8dc").place(x=590, y=50)
-        ttk.Label(frame, text="0", font=("Calibri", 48, "bold"), background="#26b8dc").place(x=590, y=100)
-        ttk.Label(frame, text="Rock", font=("Calibri", 36, "bold"), background="#26b8dc").place(x=590, y=200)
+        #label --> For the Scores of the player
+        ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), foreground="#00f").place(x=470, y=100)
 
         #creating pictures for the rock, paper, scissors button respectively
         rock = Image.open("Pictures\Theme1\Rock.jpeg")
         paper = Image.open("Pictures\Theme1\Paper.jpeg")
         scissors = Image.open("Pictures\Theme1\Scissors.jpeg")
-        imagetk1 = ctk.CTkImage(rock,size=(90,90))
-        imagetk2 = ctk.CTkImage(paper,size=(90,90))
-        imagetk3 = ctk.CTkImage(scissors,size=(90,90))
+        imagetk1 = ctk.CTkImage(rock,size=(140,90))
+        imagetk2 = ctk.CTkImage(paper,size=(140,90))
+        imagetk3 = ctk.CTkImage(scissors,size=(140,90))
 
-        #displaying the picture
-        rock_pic = ctk.CTkLabel(frame, text="", image=imagetk1)
-        paper_pic = ctk.CTkLabel(frame, text="", image=imagetk2)
-        scissors_pic = ctk.CTkLabel(frame, text="", image=imagetk3)
+        #creating frames for the picture and button
+        rock_frame = ctk.CTkFrame(self.main_frame)
+        paper_frame = ctk.CTkFrame(self.main_frame)
+        scissors_frame = ctk.CTkFrame(self.main_frame)
 
-        rock_pic.place(x=130, y=250, anchor='ne')
-        paper_pic.place(x=330, y=250, anchor="ne")
-        scissors_pic.place(x=530, y=250, anchor="ne")
+        #displaying the frames
+        rock_frame.place(x=300, y=200, anchor="center")
+        paper_frame.place(x=100, y=330, anchor="center")
+        scissors_frame.place(x=500, y=330, anchor="center")
+
+        #creating the pictures
+        rock_pic = ctk.CTkLabel(rock_frame, text="", image=imagetk1)
+        paper_pic = ctk.CTkLabel(paper_frame, text="", image=imagetk2)
+        scissors_pic = ctk.CTkLabel(scissors_frame, text="", image=imagetk3)
+
+        #packing the pictures in their respctive frames
+        rock_pic.pack(expand=True, fill="both")
+        paper_pic.pack(expand=True, fill="both")
+        scissors_pic.pack(expand=True, fill="both")
+
+        #This is the main functionality that make the scores, options change and update the history
+        # and so on
+        def button_func(opt):
+            player_opt = ttk.Label(self.main_frame, text="Rock", font=("Calibri", 36, "bold"), foreground="#00f")
+            computer_opt = ttk.Label(self.main_frame, text=f"Rock", font=("Calibri", 36, "bold"), foreground="#f00")
+            
+            if opt == "rock":
+                player_opt.configure(text=f"Rock")
+                computer_opt.configure(text=f"Rock")
+
+                player_opt.place(x=30, y=200)
+                computer_opt.place(x=530, y=200)
+
+            elif opt == "paper":
+                player_opt.configure(text=f"Paper")
+                computer_opt.configure(text=f"Paper")
+
+                player_opt.place(x=30, y=200)
+                computer_opt.place(x=530, y=200)
+
+            elif opt == "scissors":
+                player_opt.configure(text=f"Scissors")
+                computer_opt.configure(text=f"Scissors")
+
+                player_opt.place(x=30, y=200)
+                computer_opt.place(x=530, y=200)
 
         #button that chooses the player options
-        ctk.CTkButton(frame, text="Rock").place(x=150, y=350, anchor='ne')
-        ctk.CTkButton(frame, text="Paper").place(x=350, y=350,anchor="ne")
-        ctk.CTkButton(frame, text="Scissors").place(x=550, y=350, anchor="ne")
+        ctk.CTkButton(rock_frame, text="Rock", command = lambda: button_func("rock")).pack(expand=True, fill="both")
+        ctk.CTkButton(paper_frame, text="Paper", command = lambda: button_func("paper")).pack(expand=True, fill="both")
+        ctk.CTkButton(scissors_frame, text="Scissors", command = lambda: button_func("scissors")).pack(expand=True, fill="both")
 
         #this function displays the result as a frame in the window
         def result():
-            result_frame = ctk.CTkFrame(self, width=270, height=200)
+            new_window = ctk.CTkToplevel(self)
+            new_window.geometry("270x260+500+300")
+            new_window.title("Result")
+            new_window.resizable(False, False)
+            new_window.attributes("-topmost", True)
+
+            #this frame host only the picture of the result 
+            result_frame = ctk.CTkFrame(new_window, width=270, height=200)
             
+            #label --> This label tells which player won or if it is a draw
+            result = ctk.CTkLabel(new_window, text="It's a draw", bg_color='lightblue', font=("Calibri",24,"bold"))
+
             #pictures that show a win, lose, and draw in the game
             draw = Image.open("Pictures\Draw.jpeg")
             win = Image.open("Pictures\Win.jpg")
@@ -157,10 +210,25 @@ class RPS(ctk.CTk):
             win_pic = ctk.CTkLabel(result_frame, text="", image=imagetk2)
             lose_pic = ctk.CTkLabel(result_frame, text="", image=imagetk3)
 
+            #play again function
+            def another_game():
+                self.main_frame.pack_forget()
+
+                new_window.destroy()
+
+                self.rounds()
+
+            #play agian button
+            play_again = ctk.CTkButton(new_window, text="PLAY AGAIN", command=another_game)
+
+            #displaying the result label
+            result.pack(fill="both")
+
             #dislaying the picture
             draw_pic.pack(expand=True, fill="both")
+            result_frame.pack(expand=True, fill="both")
 
-            result_frame.place(x=150, y=40, anchor="nw")
-        result()
+            #displaying the play again button
+            play_again.pack(fill="both")
 
 RPS()
