@@ -1,7 +1,6 @@
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import ttk
-import ttkbootstrap as tbstrap
 from PIL import Image, ImageTk
 
 class RPS(ctk.CTk):
@@ -158,26 +157,32 @@ class RPS(ctk.CTk):
             player_opt = ttk.Label(self.main_frame, text="Rock", font=("Calibri", 36, "bold"), foreground="#00f")
             computer_opt = ttk.Label(self.main_frame, text=f"Rock", font=("Calibri", 36, "bold"), foreground="#f00")
             
-            if opt == "rock":
+            player_score = ttk.Label(self.main_frame, text=f"{0} :Your Score", font=("Calibri", 36, "bold"), foreground="#f00")
+            computer_score = ttk.Label(self.main_frame, text=f"My Score: {0}", font=("Calibri", 36, "bold"), foreground="#f00")
+            
+            def displays():
+                #displaying options the player and computer has choosen
                 player_opt.configure(text=f"Rock")
                 computer_opt.configure(text=f"Rock")
 
                 player_opt.place(x=30, y=200)
                 computer_opt.place(x=530, y=200)
 
-            elif opt == "paper":
-                player_opt.configure(text=f"Paper")
-                computer_opt.configure(text=f"Paper")
+                #displaying scores
+                player_score.configure(text=f"{0}: Your Score")
+                computer_score.configure(text=f"My Score: {0} ")
 
-                player_opt.place(x=30, y=200)
-                computer_opt.place(x=530, y=200)
+                player_score.place(x=470, y=100)
+                computer_score.place(x=30, y=100)
+
+            if opt == "rock":
+                displays()
+
+            elif opt == "paper":
+                displays()
 
             elif opt == "scissors":
-                player_opt.configure(text=f"Scissors")
-                computer_opt.configure(text=f"Scissors")
-
-                player_opt.place(x=30, y=200)
-                computer_opt.place(x=530, y=200)
+                displays()
 
         #button that chooses the player options
         ctk.CTkButton(rock_frame, text="Rock", command = lambda: button_func("rock")).pack(expand=True, fill="both")
