@@ -21,8 +21,9 @@ class RPS(ctk.CTk):
         self.resizable(False, False)
         self._set_appearance_mode("Light")
 
-        self.menubar()
-        self.startup()
+        # self.menubar()
+        # self.startup()
+        self.rounds_page()
 
         self.mainloop()
 
@@ -53,12 +54,18 @@ class RPS(ctk.CTk):
     def startup(self):
 
         #creating an image
-        image = Image.open("Pictures\Theme1\StartUp.jpeg")
+        image = Image.open("RPS\Pictures\Theme1\StartUp.jpeg")
         startup_image = ctk.CTkImage(image, size=(600, 400))
 
         #placing the picture through a label
         self.label = ctk.CTkLabel(self, text="", image=startup_image)
         self.label.pack(expand=True, fill="both")
+    
+    def rounds_page(self):
+        pass
+    
+    def main_game(self):
+        pass
 
 #testing
 if __name__ == "__main__":
